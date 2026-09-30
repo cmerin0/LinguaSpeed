@@ -11,17 +11,43 @@ Tasks are ordered strictly by dependency: infrastructure first, then domain type
 ## Tasks
 
 - [ ] 1. Project bootstrap
-  - [ ] 1.1 Initialise Go module and directory structure
+  - [ ] 1.1 Initialise Go module, directory structure, and ignore files
     - Run `go mod init` with module path `linguaspeed`
     - Create the full package skeleton: `cmd/server/`, `internal/config/`, `internal/db/migrations/`, `internal/cache/`, `internal/domain/`, `internal/repository/`, `internal/service/`, `internal/handler/`, `internal/scoring/`, `static/`
     - Add a minimal `cmd/server/main.go` that compiles (no logic yet, just `func main() {}`)
-    - Add `.gitignore` entries for `.env`, binaries, and test cache
+    - Write `.gitignore` covering:
+      - Secrets: `.env`, `.env.*` (except `.env.example`)
+      - Go artifacts: compiled binary (`/linguaspeed`, `*.exe`), test binary (`*.test`), test cache (`/tmp/`)
+      - Docker: no additional entries needed (compose files are committed)
+      - OS noise: `.DS_Store`, `Thumbs.db`
+      - Editor: `.vscode/`, `.idea/`, `*.swp`, `*.swo`
+      - Testcontainers: `/tmp/testcontainers-*`
+    - Write `.dockerignore` covering:
+      - `.git/`, `.gitignore`
+      - `.env`, `.env.*`
+      - `*.md` documentation files
+      - `.kiro/` spec directory
+      - `*.test` test binaries
+      - `tmp/`, `.vscode/`, `.idea/`
+      - `Makefile` (build-time only, not needed at runtime)
+      - Comment at top: `# Exclude everything not needed to compile the Go binary`
     - _Requirements: 1.3_
 
   - [ ] 1.2 Add all external Go dependencies
     - `go get` the exact versions: `github.com/go-chi/chi/v5`, `github.com/jackc/pgx/v5`, `github.com/redis/go-redis/v9`, `github.com/golang-migrate/migrate/v4`, `github.com/golang-jwt/jwt/v5`, `golang.org/x/crypto`, `github.com/google/uuid`, `pgregory.net/rapid`
     - Commit `go.mod` and `go.sum`
     - _Requirements: 1.1_
+
+  - [ ] 1.5 Write `Makefile` with standard targets
+    - `make build` — runs `go build -o linguaspeed ./cmd/server`
+    - `make test-unit` — runs `go test -v -count=1 ./internal/scoring/... ./internal/domain/... ./internal/handler/...` (fast, no external dependencies)
+    - `make test-property` — runs `go test -v -count=1 -run Property ./...` (rapid property tests only)
+    - `make test-integration` — runs `go test -v -count=1 -tags integration ./...` (requires Docker via testcontainers)
+    - `make test` — runs `make test-unit && make test-property && make test-integration`
+    - `make lint` — runs `go vet ./...` (no extra linter dependency required)
+    - `make clean` — removes the compiled binary
+    - Each target has a one-line comment above it explaining what it runs and when to use it
+    - _Requirements: none (developer tooling)_
 
   - [ ] 1.3 Author Docker Compose configuration and `.env.example`
     - Write `docker-compose.yml` with three services: `db` (postgres:16-alpine), `cache` (redis:7-alpine), `server` (builds from `Dockerfile`)
@@ -186,6 +212,12 @@ Tasks are ordered strictly by dependency: infrastructure first, then domain type
     - Bind on `config.ServerPort`; emit `slog.Info("server started", "port", port)`
     - _Requirements: 1.3, 1.5, 18.1_
 
+  - [ ] 9.6 Add `//go:build integration` build tag to all integration test files
+    - Every file in the integration test group (task 13.*) must open with `//go:build integration` so that `go test ./...` (without `-tags integration`) skips them in fast/unit runs
+    - Add a comment on the build tag line explaining why: `// integration build tag ensures these tests are skipped in unit/CI-fast runs — they require Docker via testcontainers`
+    - Update `make test-unit` and `make test-property` Makefile targets to confirm they do not pass `-tags integration`
+    - _Requirements: none (test hygiene)_
+
 - [ ] 10. Checkpoint — backend complete
   - Run `go build ./...` and `go vet ./...`; ensure zero errors. Ask the user if questions arise.
 
@@ -296,6 +328,40 @@ Tasks are ordered strictly by dependency: infrastructure first, then domain type
 - [ ] 14. Final checkpoint — full build and test suite
   - Run `go build ./...`; run `go test ./...`; ensure all tests pass. Ask the user if questions arise.
 
+- [ ] 15. GitHub Actions CI/CD
+  - [ ] 15.1 Create `.github/workflows/ci.yml` — continuous integration workflow
+    - Trigger: `push` and `pull_request` targeting branches `develop` and `main` (git-flow: CI runs on every branch that targets integration or production)
+    - Jobs — run in this order:
+      1. **lint**: `go vet ./...` on `ubuntu-latest`, Go version pinned to `1.22`
+      2. **test-unit**: `make test-unit` — no external services needed; runs fast
+      3. **test-property**: `make test-property` — no external services needed; runs after lint
+      4. **test-integration**: `make test-integration` — requires Docker; uses `services:` block with `postgres:16-alpine` and `redis:7-alpine`; sets env vars `DATABASE_URL`, `REDIS_ADDR`, `JWT_SECRET`, `ADMIN_USERNAME`, `ADMIN_PASSWORD` from GitHub Actions secrets or hardcoded test values (not production secrets)
+    - `test-unit` and `test-property` run in parallel after `lint`; `test-integration` runs after both pass
+    - Cache Go module downloads between runs using `actions/cache` on `~/.cache/go`
+    - All jobs use `actions/checkout@v4` and `actions/setup-go@v5` with `go-version-file: go.mod`
+    - Add a workflow status badge comment at the top of the YAML file: `# Add this badge to README.md: ![CI](https://github.com/cmerin0/LinguaSpeed/actions/workflows/ci.yml/badge.svg)`
+    - _Requirements: 1.1, 1.2 (validates build and test gates before merge)_
+
+  - [ ] 15.2 Create `.github/workflows/pr-review.yml` — pull request review gate
+    - Trigger: `pull_request` targeting `develop` or `main`, on events `opened`, `synchronize`, `reopened`
+    - Single job: **require-review**
+      - Uses `actions/github-script@v7` to post a PR comment reminding the reviewer to check: (1) all tasks completed, (2) tests pass, (3) no `.env` files committed, (4) no raw secrets in code
+      - The comment template must include a checklist in Markdown so the reviewer can tick items
+    - This workflow does NOT block the merge — it only posts the reminder comment; branch protection rules on GitHub control actual merge requirements
+    - Note in a comment at the top: `# This workflow posts a review checklist comment on every PR. Configure branch protection rules in GitHub Settings → Branches to enforce required reviews before merge.`
+    - _Requirements: none (process enforcement)_
+
+  - [ ] 15.3 Create `.github/PULL_REQUEST_TEMPLATE.md` — PR description template
+    - Sections: **Summary** (what changed), **Type of change** (checkboxes: bug fix, new feature, chore, docs), **Testing** (checkboxes: unit tests pass, property tests pass, integration tests pass, manually tested), **Git-flow checklist** (checkboxes: branched from `develop`, targets `develop` (or `main` for release), no direct commits to `main`), **Notes for reviewer**
+    - Keep it concise — the template is a prompt, not a form to fill in exhaustively
+    - _Requirements: none (process)_
+
+  - [ ] 15.4 Add `.github/workflows/README.md` — brief CI/CD documentation
+    - Explain the two workflows and when they run
+    - Explain the git-flow branch model used: `main` (production-ready), `develop` (integration), `feature/*` (individual features branched from develop, merged back to develop), `release/*` (branched from develop to main), `hotfix/*` (branched from main, merged to both main and develop)
+    - Explain what secrets need to be set in GitHub repo settings for CI to work (none required for unit/property tests; testcontainers handles its own Docker — no registry secrets needed for integration tests)
+    - _Requirements: none (documentation)_
+
 ---
 
 ## Notes
@@ -314,7 +380,7 @@ Tasks are ordered strictly by dependency: infrastructure first, then domain type
 {
   "waves": [
     { "id": 0, "tasks": ["1.1", "1.2"] },
-    { "id": 1, "tasks": ["1.3", "2.1"] },
+    { "id": 1, "tasks": ["1.3", "1.5", "2.1"] },
     { "id": 2, "tasks": ["2.2", "2.3", "3.1", "3.2"] },
     { "id": 3, "tasks": ["3.3", "4.1"] },
     { "id": 4, "tasks": ["3.4", "5.1"] },
@@ -323,10 +389,11 @@ Tasks are ordered strictly by dependency: infrastructure first, then domain type
     { "id": 7, "tasks": ["8.1", "8.2", "8.3"] },
     { "id": 8, "tasks": ["9.1", "9.2"] },
     { "id": 9, "tasks": ["9.3", "9.4"] },
-    { "id": 10, "tasks": ["9.5"] },
+    { "id": 10, "tasks": ["9.5", "9.6"] },
     { "id": 11, "tasks": ["11.1", "11.2", "12.1"] },
     { "id": 12, "tasks": ["12.2", "12.3", "12.4", "12.5"] },
-    { "id": 13, "tasks": ["12.6", "13.1", "13.2", "13.3", "13.4", "13.5"] }
+    { "id": 13, "tasks": ["12.6", "13.1", "13.2", "13.3", "13.4", "13.5"] },
+    { "id": 14, "tasks": ["15.1", "15.2", "15.3", "15.4"] }
   ]
 }
 ```
