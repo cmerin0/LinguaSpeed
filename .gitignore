@@ -1,0 +1,18 @@
+# Environment secrets — never commit
+.env
+
+# Go build artifacts
+/linguaspeed
+*.exe
+
+# Go test cache
+/tmp/
+*.test
+
+# OS noise
+.DS_Store
+Thumbs.db
+
+# Editor
+.vscode/
+*.swp
