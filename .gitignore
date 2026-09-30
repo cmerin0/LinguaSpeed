@@ -1,13 +1,16 @@
-# Environment secrets — never commit
+﻿# Secrets — never commit
 .env
+.env.*
+!.env.example
 
 # Go build artifacts
 /linguaspeed
 *.exe
-
-# Go test cache
-/tmp/
 *.test
+
+# Test cache
+/tmp/
+/tmp/testcontainers-*
 
 # OS noise
 .DS_Store
@@ -15,4 +18,9 @@ Thumbs.db
 
 # Editor
 .vscode/
+.idea/
 *.swp
+*.swo
+
+# Linux binary output
+/server

@@ -1,0 +1,13 @@
+# Exclude everything not needed to compile the Go binary
+
+.git/
+.gitignore
+.env
+.env.*
+*.md
+.kiro/
+*.test
+tmp/
+.vscode/
+.idea/
+Makefile
