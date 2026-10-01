@@ -11,7 +11,7 @@ Tasks are ordered strictly by dependency: infrastructure first, then domain type
 ## Tasks
 
 - [ ] 1. Project bootstrap
-  - [-] 1.1 Initialise Go module, directory structure, and ignore files
+  - [x] 1.1 Initialise Go module, directory structure, and ignore files
     - Run `go mod init` with module path `linguaspeed`
     - Create the full package skeleton: `cmd/server/`, `internal/config/`, `internal/db/migrations/`, `internal/cache/`, `internal/domain/`, `internal/repository/`, `internal/service/`, `internal/handler/`, `internal/scoring/`, `static/`
     - Add a minimal `cmd/server/main.go` that compiles (no logic yet, just `func main() {}`)
@@ -33,12 +33,12 @@ Tasks are ordered strictly by dependency: infrastructure first, then domain type
       - Comment at top: `# Exclude everything not needed to compile the Go binary`
     - _Requirements: 1.3_
 
-  - [-] 1.2 Add all external Go dependencies
+  - [x] 1.2 Add all external Go dependencies
     - `go get` the exact versions: `github.com/go-chi/chi/v5`, `github.com/jackc/pgx/v5`, `github.com/redis/go-redis/v9`, `github.com/golang-migrate/migrate/v4`, `github.com/golang-jwt/jwt/v5`, `golang.org/x/crypto`, `github.com/google/uuid`, `pgregory.net/rapid`
     - Commit `go.mod` and `go.sum`
     - _Requirements: 1.1_
 
-  - [~] 1.5 Write `Makefile` with standard targets
+  - [-] 1.5 Write `Makefile` with standard targets
     - `make build` — runs `go build -o linguaspeed ./cmd/server`
     - `make test-unit` — runs `go test -v -count=1 ./internal/scoring/... ./internal/domain/... ./internal/handler/...` (fast, no external dependencies)
     - `make test-property` — runs `go test -v -count=1 -run Property ./...` (rapid property tests only)
@@ -49,7 +49,7 @@ Tasks are ordered strictly by dependency: infrastructure first, then domain type
     - Each target has a one-line comment above it explaining what it runs and when to use it
     - _Requirements: none (developer tooling)_
 
-  - [~] 1.3 Author Docker Compose configuration and `.env.example`
+  - [-] 1.3 Author Docker Compose configuration and `.env.example`
     - Write `docker-compose.yml` with three services: `db` (postgres:16-alpine), `cache` (redis:7-alpine), `server` (builds from `Dockerfile`)
     - `db` and `cache` have healthchecks (`pg_isready` and `redis-cli ping`); `server` has `depends_on: {db: {condition: service_healthy}, cache: {condition: service_healthy}}`
     - Mount named volume `db_data` for the `db` service; no host-facing ports for `db` or `cache`
