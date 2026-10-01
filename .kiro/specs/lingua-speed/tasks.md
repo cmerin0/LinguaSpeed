@@ -59,7 +59,7 @@ Tasks are ordered strictly by dependency: infrastructure first, then domain type
     - _Requirements: 1.1, 1.2, 1.5, 1.6_
 
 - [ ] 2. Configuration and startup wiring
-  - [~] 2.1 Implement `internal/config/config.go`
+  - [-] 2.1 Implement `internal/config/config.go`
     - Define `Config` struct with fields: `DatabaseURL`, `RedisAddr`, `JWTSecret`, `ServerPort` (default `"3000"`), `AdminUsername`, `AdminPassword`, `BasePoints` (default 1000), `Penalty` (default 200)
     - `Load()` reads all values from environment variables; collects every missing required variable name and exits with code 1 after logging all missing names in a single `slog.Error` call
     - Include package-level godoc comment
