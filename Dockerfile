@@ -1,7 +1,7 @@
 # Stage 1 — builder
 # Uses the full Go toolchain to compile the server binary with CGO disabled so
 # the output is a fully static binary that requires no C runtime at execution time.
-FROM golang:1.22-alpine AS builder
+FROM golang:1.26.7 AS builder
 
 WORKDIR /build
 

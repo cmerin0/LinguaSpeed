@@ -7,9 +7,9 @@ services:
     image: postgres:16-alpine
     restart: unless-stopped   # recover from crashes automatically; operator must fix bad config manually
     environment:
-      POSTGRES_USER: linguaspeed
+      POSTGRES_USER: ${DB_USER}
       POSTGRES_PASSWORD: ${DB_PASSWORD}
-      POSTGRES_DB: linguaspeed
+      POSTGRES_DB: ${DB_NAME}
       # Explicit UTF-8 encoding matters: tongue-twisters contain Spanish characters (tildes, ñ, ü).
       POSTGRES_INITDB_ARGS: "--encoding=UTF8"
     volumes:
@@ -19,10 +19,10 @@ services:
     networks:
       - linguaspeed_net
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U linguaspeed"]
+      test: ["CMD-SHELL", "pg_isready -U ${DB_USER} -d ${DB_NAME}"]
       interval: 5s
       timeout: 5s
-      retries: 5
+      retries: 10
     # Production note: add deploy.resources.limits to cap CPU and memory, e.g.:
     #   deploy:
     #     resources:
@@ -54,7 +54,7 @@ services:
     ports:
       - "${SERVER_PORT:-3000}:3000"   # only the server is host-facing
     environment:
-      DATABASE_URL: postgres://linguaspeed:${DB_PASSWORD}@db:5432/linguaspeed
+      DATABASE_URL: postgres://${DB_USER}:${DB_PASSWORD}@db:5432/${DB_NAME}
       REDIS_ADDR: cache:6379
       JWT_SECRET: ${JWT_SECRET}
       SERVER_PORT: "3000"
