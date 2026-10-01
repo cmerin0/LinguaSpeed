@@ -1,0 +1,344 @@
+{
+  "pbtResults": {},
+  "executionHistory": {
+    "1.1 Initialise Go module, directory structure, and ignore files": [
+      {
+        "executionId": "ade580d1-3f3d-4ca2-a6ab-388d7095ec97",
+        "chatSessionId": "sess_6302c3e3-4987-455b-9d41-d512b403821a",
+        "timestamp": 1790801443030
+      },
+      {
+        "executionId": "ade580d1-3f3d-4ca2-a6ab-388d7095ec97",
+        "chatSessionId": "sess_6302c3e3-4987-455b-9d41-d512b403821a",
+        "timestamp": 1790801454267
+      }
+    ],
+    "1.2 Add all external Go dependencies": [
+      {
+        "executionId": "ade580d1-3f3d-4ca2-a6ab-388d7095ec97",
+        "chatSessionId": "sess_6302c3e3-4987-455b-9d41-d512b403821a",
+        "timestamp": 1790801444114
+      },
+      {
+        "executionId": "ade580d1-3f3d-4ca2-a6ab-388d7095ec97",
+        "chatSessionId": "sess_6302c3e3-4987-455b-9d41-d512b403821a",
+        "timestamp": 1790801454631
+      }
+    ],
+    "1.3 Author Docker Compose configuration and `.env.example`": [
+      {
+        "executionId": "ade580d1-3f3d-4ca2-a6ab-388d7095ec97",
+        "chatSessionId": "sess_6302c3e3-4987-455b-9d41-d512b403821a",
+        "timestamp": 1790801444295
+      }
+    ],
+    "1.5 Write `Makefile` with standard targets": [
+      {
+        "executionId": "ade580d1-3f3d-4ca2-a6ab-388d7095ec97",
+        "chatSessionId": "sess_6302c3e3-4987-455b-9d41-d512b403821a",
+        "timestamp": 1790801444442
+      }
+    ],
+    "2.1 Implement `internal/config/config.go`": [
+      {
+        "executionId": "ade580d1-3f3d-4ca2-a6ab-388d7095ec97",
+        "chatSessionId": "sess_6302c3e3-4987-455b-9d41-d512b403821a",
+        "timestamp": 1790801444585
+      }
+    ],
+    "2.2 Implement `internal/db/db.go` — pgx connection pool factory": [
+      {
+        "executionId": "ade580d1-3f3d-4ca2-a6ab-388d7095ec97",
+        "chatSessionId": "sess_6302c3e3-4987-455b-9d41-d512b403821a",
+        "timestamp": 1790801444730
+      }
+    ],
+    "2.3 Implement `internal/cache/cache.go` — go-redis client factory": [
+      {
+        "executionId": "ade580d1-3f3d-4ca2-a6ab-388d7095ec97",
+        "chatSessionId": "sess_6302c3e3-4987-455b-9d41-d512b403821a",
+        "timestamp": 1790801444869
+      }
+    ],
+    "3.1 Write SQL migration 001 — `tongue_twisters` table": [
+      {
+        "executionId": "ade580d1-3f3d-4ca2-a6ab-388d7095ec97",
+        "chatSessionId": "sess_6302c3e3-4987-455b-9d41-d512b403821a",
+        "timestamp": 1790801445007
+      }
+    ],
+    "3.2 Write SQL migration 002 — `users` table": [
+      {
+        "executionId": "ade580d1-3f3d-4ca2-a6ab-388d7095ec97",
+        "chatSessionId": "sess_6302c3e3-4987-455b-9d41-d512b403821a",
+        "timestamp": 1790801445174
+      }
+    ],
+    "3.3 Write SQL migrations 003 and 004 — `game_records` and `attempt_details` tables": [
+      {
+        "executionId": "ade580d1-3f3d-4ca2-a6ab-388d7095ec97",
+        "chatSessionId": "sess_6302c3e3-4987-455b-9d41-d512b403821a",
+        "timestamp": 1790801445314
+      }
+    ],
+    "3.4 Wire migration runner and seed logic into `cmd/server/main.go`": [
+      {
+        "executionId": "ade580d1-3f3d-4ca2-a6ab-388d7095ec97",
+        "chatSessionId": "sess_6302c3e3-4987-455b-9d41-d512b403821a",
+        "timestamp": 1790801445463
+      }
+    ],
+    "4.1 Implement `internal/domain/` value types": [
+      {
+        "executionId": "ade580d1-3f3d-4ca2-a6ab-388d7095ec97",
+        "chatSessionId": "sess_6302c3e3-4987-455b-9d41-d512b403821a",
+        "timestamp": 1790801445620
+      }
+    ],
+    "5.1 Implement `internal/scoring/scoring.go`": [
+      {
+        "executionId": "ade580d1-3f3d-4ca2-a6ab-388d7095ec97",
+        "chatSessionId": "sess_6302c3e3-4987-455b-9d41-d512b403821a",
+        "timestamp": 1790801445761
+      }
+    ],
+    "6.1 Implement `internal/repository/tongue_twister.go`": [
+      {
+        "executionId": "ade580d1-3f3d-4ca2-a6ab-388d7095ec97",
+        "chatSessionId": "sess_6302c3e3-4987-455b-9d41-d512b403821a",
+        "timestamp": 1790801445920
+      }
+    ],
+    "6.2 Implement `internal/repository/user.go`": [
+      {
+        "executionId": "ade580d1-3f3d-4ca2-a6ab-388d7095ec97",
+        "chatSessionId": "sess_6302c3e3-4987-455b-9d41-d512b403821a",
+        "timestamp": 1790801446073
+      }
+    ],
+    "6.3 Implement `internal/repository/session.go` — Redis Game Session CRUD": [
+      {
+        "executionId": "ade580d1-3f3d-4ca2-a6ab-388d7095ec97",
+        "chatSessionId": "sess_6302c3e3-4987-455b-9d41-d512b403821a",
+        "timestamp": 1790801446226
+      }
+    ],
+    "6.4 Implement `internal/repository/game_record.go`": [
+      {
+        "executionId": "ade580d1-3f3d-4ca2-a6ab-388d7095ec97",
+        "chatSessionId": "sess_6302c3e3-4987-455b-9d41-d512b403821a",
+        "timestamp": 1790801446379
+      }
+    ],
+    "6.5 Implement `internal/repository/leaderboard.go`": [
+      {
+        "executionId": "ade580d1-3f3d-4ca2-a6ab-388d7095ec97",
+        "chatSessionId": "sess_6302c3e3-4987-455b-9d41-d512b403821a",
+        "timestamp": 1790801446531
+      }
+    ],
+    "7. Checkpoint — repository layer complete": [
+      {
+        "executionId": "ade580d1-3f3d-4ca2-a6ab-388d7095ec97",
+        "chatSessionId": "sess_6302c3e3-4987-455b-9d41-d512b403821a",
+        "timestamp": 1790801446706
+      }
+    ],
+    "8.1 Implement `internal/service/game.go` — `GameService`": [
+      {
+        "executionId": "ade580d1-3f3d-4ca2-a6ab-388d7095ec97",
+        "chatSessionId": "sess_6302c3e3-4987-455b-9d41-d512b403821a",
+        "timestamp": 1790801446857
+      }
+    ],
+    "8.2 Implement `internal/service/admin.go` — `AdminService`": [
+      {
+        "executionId": "ade580d1-3f3d-4ca2-a6ab-388d7095ec97",
+        "chatSessionId": "sess_6302c3e3-4987-455b-9d41-d512b403821a",
+        "timestamp": 1790801447006
+      }
+    ],
+    "8.3 Implement `internal/service/leaderboard.go` — `LeaderboardService`": [
+      {
+        "executionId": "ade580d1-3f3d-4ca2-a6ab-388d7095ec97",
+        "chatSessionId": "sess_6302c3e3-4987-455b-9d41-d512b403821a",
+        "timestamp": 1790801447154
+      }
+    ],
+    "9.1 Implement `internal/handler/middleware.go`": [
+      {
+        "executionId": "ade580d1-3f3d-4ca2-a6ab-388d7095ec97",
+        "chatSessionId": "sess_6302c3e3-4987-455b-9d41-d512b403821a",
+        "timestamp": 1790801447300
+      }
+    ],
+    "9.2 Implement `internal/handler/` helper utilities": [
+      {
+        "executionId": "ade580d1-3f3d-4ca2-a6ab-388d7095ec97",
+        "chatSessionId": "sess_6302c3e3-4987-455b-9d41-d512b403821a",
+        "timestamp": 1790801447441
+      }
+    ],
+    "9.3 Implement `internal/handler/game.go` — player-facing HTTP handlers": [
+      {
+        "executionId": "ade580d1-3f3d-4ca2-a6ab-388d7095ec97",
+        "chatSessionId": "sess_6302c3e3-4987-455b-9d41-d512b403821a",
+        "timestamp": 1790801447603
+      }
+    ],
+    "9.4 Implement `internal/handler/admin.go` — admin HTTP handlers": [
+      {
+        "executionId": "ade580d1-3f3d-4ca2-a6ab-388d7095ec97",
+        "chatSessionId": "sess_6302c3e3-4987-455b-9d41-d512b403821a",
+        "timestamp": 1790801447738
+      }
+    ],
+    "9.5 Wire chi router and start HTTP server in `cmd/server/main.go`": [
+      {
+        "executionId": "ade580d1-3f3d-4ca2-a6ab-388d7095ec97",
+        "chatSessionId": "sess_6302c3e3-4987-455b-9d41-d512b403821a",
+        "timestamp": 1790801447911
+      }
+    ],
+    "9.6 Add `//go:build integration` build tag to all integration test files": [
+      {
+        "executionId": "ade580d1-3f3d-4ca2-a6ab-388d7095ec97",
+        "chatSessionId": "sess_6302c3e3-4987-455b-9d41-d512b403821a",
+        "timestamp": 1790801448057
+      }
+    ],
+    "10. Checkpoint — backend complete": [
+      {
+        "executionId": "ade580d1-3f3d-4ca2-a6ab-388d7095ec97",
+        "chatSessionId": "sess_6302c3e3-4987-455b-9d41-d512b403821a",
+        "timestamp": 1790801448194
+      }
+    ],
+    "11.1 Write property test for `GameSession` serialization round-trip — Property 1": [
+      {
+        "executionId": "ade580d1-3f3d-4ca2-a6ab-388d7095ec97",
+        "chatSessionId": "sess_6302c3e3-4987-455b-9d41-d512b403821a",
+        "timestamp": 1790801448337
+      }
+    ],
+    "11.2 Write property tests for game service logic — Properties 4, 5, 6, 7, 8": [
+      {
+        "executionId": "ade580d1-3f3d-4ca2-a6ab-388d7095ec97",
+        "chatSessionId": "sess_6302c3e3-4987-455b-9d41-d512b403821a",
+        "timestamp": 1790801448512
+      }
+    ],
+    "12.1 Implement `static/index.html` — nickname + difficulty selection": [
+      {
+        "executionId": "ade580d1-3f3d-4ca2-a6ab-388d7095ec97",
+        "chatSessionId": "sess_6302c3e3-4987-455b-9d41-d512b403821a",
+        "timestamp": 1790801448644
+      }
+    ],
+    "12.2 Implement `static/game.html` — active game UI": [
+      {
+        "executionId": "ade580d1-3f3d-4ca2-a6ab-388d7095ec97",
+        "chatSessionId": "sess_6302c3e3-4987-455b-9d41-d512b403821a",
+        "timestamp": 1790801448784
+      }
+    ],
+    "12.3 Implement `static/result.html` — win/loss results screen": [
+      {
+        "executionId": "ade580d1-3f3d-4ca2-a6ab-388d7095ec97",
+        "chatSessionId": "sess_6302c3e3-4987-455b-9d41-d512b403821a",
+        "timestamp": 1790801448938
+      }
+    ],
+    "12.4 Implement `static/leaderboard.html` — public leaderboard": [
+      {
+        "executionId": "ade580d1-3f3d-4ca2-a6ab-388d7095ec97",
+        "chatSessionId": "sess_6302c3e3-4987-455b-9d41-d512b403821a",
+        "timestamp": 1790801449083
+      }
+    ],
+    "12.5 Implement `static/admin/login.html` — admin login page": [
+      {
+        "executionId": "ade580d1-3f3d-4ca2-a6ab-388d7095ec97",
+        "chatSessionId": "sess_6302c3e3-4987-455b-9d41-d512b403821a",
+        "timestamp": 1790801449229
+      }
+    ],
+    "12.6 Implement `static/admin/index.html` — tongue-twister management panel": [
+      {
+        "executionId": "ade580d1-3f3d-4ca2-a6ab-388d7095ec97",
+        "chatSessionId": "sess_6302c3e3-4987-455b-9d41-d512b403821a",
+        "timestamp": 1790801449383
+      }
+    ],
+    "13.1 Write integration test — full game flow (win path)": [
+      {
+        "executionId": "ade580d1-3f3d-4ca2-a6ab-388d7095ec97",
+        "chatSessionId": "sess_6302c3e3-4987-455b-9d41-d512b403821a",
+        "timestamp": 1790801449555
+      }
+    ],
+    "13.2 Write integration test — full game flow (loss path)": [
+      {
+        "executionId": "ade580d1-3f3d-4ca2-a6ab-388d7095ec97",
+        "chatSessionId": "sess_6302c3e3-4987-455b-9d41-d512b403821a",
+        "timestamp": 1790801449707
+      }
+    ],
+    "13.3 Write integration test — leaderboard highest-score retention": [
+      {
+        "executionId": "ade580d1-3f3d-4ca2-a6ab-388d7095ec97",
+        "chatSessionId": "sess_6302c3e3-4987-455b-9d41-d512b403821a",
+        "timestamp": 1790801449859
+      }
+    ],
+    "13.4 Write integration test — admin CRUD for tongue-twisters": [
+      {
+        "executionId": "ade580d1-3f3d-4ca2-a6ab-388d7095ec97",
+        "chatSessionId": "sess_6302c3e3-4987-455b-9d41-d512b403821a",
+        "timestamp": 1790801450002
+      }
+    ],
+    "13.5 Write integration test — migration correctness": [
+      {
+        "executionId": "ade580d1-3f3d-4ca2-a6ab-388d7095ec97",
+        "chatSessionId": "sess_6302c3e3-4987-455b-9d41-d512b403821a",
+        "timestamp": 1790801450143
+      }
+    ],
+    "14. Final checkpoint — full build and test suite": [
+      {
+        "executionId": "ade580d1-3f3d-4ca2-a6ab-388d7095ec97",
+        "chatSessionId": "sess_6302c3e3-4987-455b-9d41-d512b403821a",
+        "timestamp": 1790801450300
+      }
+    ],
+    "15.1 Create `.github/workflows/ci.yml` — continuous integration workflow": [
+      {
+        "executionId": "ade580d1-3f3d-4ca2-a6ab-388d7095ec97",
+        "chatSessionId": "sess_6302c3e3-4987-455b-9d41-d512b403821a",
+        "timestamp": 1790801450455
+      }
+    ],
+    "15.2 Create `.github/workflows/pr-review.yml` — pull request review gate": [
+      {
+        "executionId": "ade580d1-3f3d-4ca2-a6ab-388d7095ec97",
+        "chatSessionId": "sess_6302c3e3-4987-455b-9d41-d512b403821a",
+        "timestamp": 1790801450595
+      }
+    ],
+    "15.3 Create `.github/PULL_REQUEST_TEMPLATE.md` — PR description template": [
+      {
+        "executionId": "ade580d1-3f3d-4ca2-a6ab-388d7095ec97",
+        "chatSessionId": "sess_6302c3e3-4987-455b-9d41-d512b403821a",
+        "timestamp": 1790801450762
+      }
+    ],
+    "15.4 Add `.github/workflows/README.md` — brief CI/CD documentation": [
+      {
+        "executionId": "ade580d1-3f3d-4ca2-a6ab-388d7095ec97",
+        "chatSessionId": "sess_6302c3e3-4987-455b-9d41-d512b403821a",
+        "timestamp": 1790801450900
+      }
+    ]
+  }
+}
