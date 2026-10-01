@@ -1,0 +1,76 @@
+# Docker Compose automatically loads .env from the project directory for variable
+# substitution (${VAR} syntax). Never commit .env — it contains real secrets.
+# Copy .env.example to .env and fill in the values before running docker compose up.
+
+services:
+  db:
+    image: postgres:16-alpine
+    restart: unless-stopped   # recover from crashes automatically; operator must fix bad config manually
+    environment:
+      POSTGRES_USER: ${DB_USER}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+      POSTGRES_DB: ${DB_NAME}
+      # Explicit UTF-8 encoding matters: tongue-twisters contain Spanish characters (tildes, ñ, ü).
+      POSTGRES_INITDB_ARGS: "--encoding=UTF8"
+    volumes:
+      - db_data:/var/lib/postgresql/data
+    # No `ports:` — the database is only reachable from inside linguaspeed_net.
+    # Exposing 5432 to the host would allow any local process to connect directly.
+    networks:
+      - linguaspeed_net
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${DB_USER} -d ${DB_NAME}"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+    # Production note: add deploy.resources.limits to cap CPU and memory, e.g.:
+    #   deploy:
+    #     resources:
+    #       limits:
+    #         cpus: "1.0"
+    #         memory: 512M
+
+  cache:
+    image: redis:7-alpine
+    restart: unless-stopped
+    # Disable all Redis persistence: no RDB snapshots, no AOF journal.
+    # Redis is ephemeral by design — in-flight sessions expire and the leaderboard
+    # can be rebuilt from game_records. Persistence would waste I/O for no benefit.
+    command: redis-server --save "" --appendonly no
+    # No `ports:` — Redis is only reachable from inside linguaspeed_net.
+    networks:
+      - linguaspeed_net
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+    # Production note: add deploy.resources.limits as above.
+
+  server:
+    build: .
+    # No restart policy — let it fail loudly on misconfiguration so the operator
+    # sees the error immediately rather than entering a restart loop.
+    ports:
+      - "${SERVER_PORT:-3000}:3000"   # only the server is host-facing
+    environment:
+      DATABASE_URL: postgres://${DB_USER}:${DB_PASSWORD}@db:5432/${DB_NAME}
+      REDIS_ADDR: cache:6379
+      JWT_SECRET: ${JWT_SECRET}
+      SERVER_PORT: "3000"
+      ADMIN_USERNAME: ${ADMIN_USERNAME}
+      ADMIN_PASSWORD: ${ADMIN_PASSWORD}
+    networks:
+      - linguaspeed_net
+    depends_on:
+      db:
+        condition: service_healthy
+      cache:
+        condition: service_healthy
+
+networks:
+  linguaspeed_net:
+    driver: bridge   # isolated bridge; services on this network cannot reach other Compose stacks
+
+volumes:
+  db_data:
