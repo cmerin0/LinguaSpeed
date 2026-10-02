@@ -75,24 +75,24 @@ Tasks are ordered strictly by dependency: infrastructure first, then domain type
     - Include package-level godoc comment
     - _Requirements: 1.2_
 
-- [ ] 3. Database schema migrations
-  - [-] 3.1 Write SQL migration 001 — `tongue_twisters` table
+- [x] 3. Database schema migrations
+  - [x] 3.1 Write SQL migration 001 — `tongue_twisters` table
     - Up: `CREATE TABLE tongue_twisters` with columns `id`, `text` (VARCHAR 500, trimmed non-empty check), `difficulty` (CHECK IN 'easy','medium','hard'), `active` (BOOLEAN DEFAULT TRUE), `created_at`, `updated_at`; create composite index `idx_tt_difficulty_active (difficulty, active)`
     - Down: `DROP TABLE tongue_twisters`
     - _Requirements: 2.3_
 
-  - [-] 3.2 Write SQL migration 002 — `users` table
+  - [x] 3.2 Write SQL migration 002 — `users` table
     - Up: `CREATE TYPE user_role AS ENUM ('admin','moderator')`, `CREATE TABLE users` with columns `id`, `username` (VARCHAR 64 UNIQUE NOT NULL), `hashed_password` (VARCHAR 72), `role user_role NOT NULL`, `created_at`, `updated_at`
     - Down: `DROP TABLE users`, `DROP TYPE user_role`
     - _Requirements: 2.4, 2.7_
 
-  - [~] 3.3 Write SQL migrations 003 and 004 — `game_records` and `attempt_details` tables
+  - [x] 3.3 Write SQL migrations 003 and 004 — `game_records` and `attempt_details` tables
     - Migration 003 up: `CREATE TABLE game_records` with `id`, `nickname` (VARCHAR 32), `final_score` (INTEGER CHECK ≥ 0), `difficulty`, `started_at`, `ended_at`; index `idx_gr_difficulty`
     - Migration 004 up: `CREATE TABLE attempt_details` with `id`, `game_record_id` (FK → game_records ON DELETE CASCADE), `tongue_twister_id` (FK → tongue_twisters), `attempt_count` (CHECK ≥ 1), `time_taken_ms` (BIGINT CHECK ≥ 0), `success`; index `idx_ad_game_record`
     - Corresponding down migrations
     - _Requirements: 2.5, 2.6_
 
-  - [~] 3.4 Wire migration runner and seed logic into `cmd/server/main.go`
+  - [x] 3.4 Wire migration runner and seed logic into `cmd/server/main.go`
     - Embed migration files with `//go:embed internal/db/migrations/*.sql`
     - On startup: call `golang-migrate` to apply pending migrations; halt with `slog.Error` + `os.Exit(1)` on failure
     - After migrations: run seed logic — if no admin user exists, insert one with bcrypt-hashed password (cost ≥ 12) using `ADMIN_USERNAME`/`ADMIN_PASSWORD` env vars; if vars absent, abort with error; if admin already exists, log INFO and skip
@@ -100,7 +100,7 @@ Tasks are ordered strictly by dependency: infrastructure first, then domain type
     - _Requirements: 2.1, 2.2, 2.8, 2.9, 2.10_
 
 - [ ] 4. Domain types
-  - [~] 4.1 Implement `internal/domain/` value types
+  - [-] 4.1 Implement `internal/domain/` value types
     - `game.go`: `GameSession` struct (all fields from design JSON schema: `SessionID`, `Nickname`, `Difficulty`, `Hearts`, `Score`, `ShownIDs []int64`, `StartedAt time.Time`, `Status`); `AttemptDetail`; `GameRecord`; status constants `StatusActive`, `StatusEndedWin`, `StatusEndedLoss`
     - `tongue_twister.go`: `TongueTwister` struct; `Difficulty` type with constants `DifficultyEasy`, `DifficultyMedium`, `DifficultyHard`; `IsValidDifficulty(s string) bool`
     - `user.go`: `User` struct; `Role` type
@@ -109,13 +109,13 @@ Tasks are ordered strictly by dependency: infrastructure first, then domain type
     - _Requirements: 3.1, 4.4, 5.1, 7.6, 8.2_
 
 - [ ] 5. Scoring package
-  - [~] 5.1 Implement `internal/scoring/scoring.go`
+  - [-] 5.1 Implement `internal/scoring/scoring.go`
     - Export constants `DefaultBasePoints = 1000`, `DefaultPenalty = 200`
     - `Compute(timeMS int64, failedAttempts int, basePoints, penalty int) int` — apply formula `max(0, basePoints - int(timeMS/100) - failedAttempts*penalty)`; use defaults when `basePoints` or `penalty` are 0
     - Package-level godoc comment; exported symbol comments
     - _Requirements: 8.2_
 
-  - [ ]* 5.2 Write property tests for scoring — Properties 2 and 3
+  - [-] 5.2 Write property tests for scoring — Properties 2 and 3
     - File: `internal/scoring/scoring_prop_test.go`
     - **Property 2: Scoring formula non-negativity** — for any `timeMS ∈ [0, 1_000_000]` and `failedAttempts ∈ [0, 100]`, `Compute` must return ≥ 0
     - **Property 3: Scoring formula degrades with failures and time** — holding `timeMS` fixed, increasing `failedAttempts` by 1 must not increase score; holding `failedAttempts` fixed, increasing `timeMS` must not increase score

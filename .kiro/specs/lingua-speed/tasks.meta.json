@@ -120,6 +120,11 @@
         "executionId": "d95d92cd-acf1-4ea9-b5b6-d6d9ea2a02c5",
         "chatSessionId": "sess_6302c3e3-4987-455b-9d41-d512b403821a",
         "timestamp": 1790905445739
+      },
+      {
+        "executionId": "d95d92cd-acf1-4ea9-b5b6-d6d9ea2a02c5",
+        "chatSessionId": "sess_6302c3e3-4987-455b-9d41-d512b403821a",
+        "timestamp": 1790906052073
       }
     ],
     "3.2 Write SQL migration 002 — `users` table": [
@@ -132,6 +137,11 @@
         "executionId": "d95d92cd-acf1-4ea9-b5b6-d6d9ea2a02c5",
         "chatSessionId": "sess_6302c3e3-4987-455b-9d41-d512b403821a",
         "timestamp": 1790905446052
+      },
+      {
+        "executionId": "d95d92cd-acf1-4ea9-b5b6-d6d9ea2a02c5",
+        "chatSessionId": "sess_6302c3e3-4987-455b-9d41-d512b403821a",
+        "timestamp": 1790906052523
       }
     ],
     "3.3 Write SQL migrations 003 and 004 — `game_records` and `attempt_details` tables": [
@@ -139,6 +149,11 @@
         "executionId": "ade580d1-3f3d-4ca2-a6ab-388d7095ec97",
         "chatSessionId": "sess_6302c3e3-4987-455b-9d41-d512b403821a",
         "timestamp": 1790801445314
+      },
+      {
+        "executionId": "d95d92cd-acf1-4ea9-b5b6-d6d9ea2a02c5",
+        "chatSessionId": "sess_6302c3e3-4987-455b-9d41-d512b403821a",
+        "timestamp": 1790906055480
       }
     ],
     "3.4 Wire migration runner and seed logic into `cmd/server/main.go`": [
@@ -146,6 +161,11 @@
         "executionId": "ade580d1-3f3d-4ca2-a6ab-388d7095ec97",
         "chatSessionId": "sess_6302c3e3-4987-455b-9d41-d512b403821a",
         "timestamp": 1790801445463
+      },
+      {
+        "executionId": "d95d92cd-acf1-4ea9-b5b6-d6d9ea2a02c5",
+        "chatSessionId": "sess_6302c3e3-4987-455b-9d41-d512b403821a",
+        "timestamp": 1790906055939
       }
     ],
     "4.1 Implement `internal/domain/` value types": [
@@ -153,6 +173,11 @@
         "executionId": "ade580d1-3f3d-4ca2-a6ab-388d7095ec97",
         "chatSessionId": "sess_6302c3e3-4987-455b-9d41-d512b403821a",
         "timestamp": 1790801445620
+      },
+      {
+        "executionId": "beeaedb0-73a7-471e-9693-66ce77943b60",
+        "chatSessionId": "sess_6302c3e3-4987-455b-9d41-d512b403821a",
+        "timestamp": 1790906748091
       }
     ],
     "5.1 Implement `internal/scoring/scoring.go`": [
@@ -160,6 +185,11 @@
         "executionId": "ade580d1-3f3d-4ca2-a6ab-388d7095ec97",
         "chatSessionId": "sess_6302c3e3-4987-455b-9d41-d512b403821a",
         "timestamp": 1790801445761
+      },
+      {
+        "executionId": "beeaedb0-73a7-471e-9693-66ce77943b60",
+        "chatSessionId": "sess_6302c3e3-4987-455b-9d41-d512b403821a",
+        "timestamp": 1790906748622
       }
     ],
     "6.1 Implement `internal/repository/tongue_twister.go`": [
@@ -412,6 +442,20 @@
         "executionId": "73408230-7829-4693-abe1-2f5b25251925",
         "chatSessionId": "sess_6302c3e3-4987-455b-9d41-d512b403821a",
         "timestamp": 1790824100494
+      }
+    ],
+    "3. Database schema migrations": [
+      {
+        "executionId": "d95d92cd-acf1-4ea9-b5b6-d6d9ea2a02c5",
+        "chatSessionId": "sess_6302c3e3-4987-455b-9d41-d512b403821a",
+        "timestamp": 1790906056116
+      }
+    ],
+    "5.2 Write property tests for scoring — Properties 2 and 3": [
+      {
+        "executionId": "beeaedb0-73a7-471e-9693-66ce77943b60",
+        "chatSessionId": "sess_6302c3e3-4987-455b-9d41-d512b403821a",
+        "timestamp": 1790906749170
       }
     ]
   }
