@@ -79,6 +79,11 @@
         "executionId": "73408230-7829-4693-abe1-2f5b25251925",
         "chatSessionId": "sess_6302c3e3-4987-455b-9d41-d512b403821a",
         "timestamp": 1790823559957
+      },
+      {
+        "executionId": "73408230-7829-4693-abe1-2f5b25251925",
+        "chatSessionId": "sess_6302c3e3-4987-455b-9d41-d512b403821a",
+        "timestamp": 1790824097205
       }
     ],
     "2.2 Implement `internal/db/db.go` — pgx connection pool factory": [
@@ -86,6 +91,11 @@
         "executionId": "ade580d1-3f3d-4ca2-a6ab-388d7095ec97",
         "chatSessionId": "sess_6302c3e3-4987-455b-9d41-d512b403821a",
         "timestamp": 1790801444730
+      },
+      {
+        "executionId": "73408230-7829-4693-abe1-2f5b25251925",
+        "chatSessionId": "sess_6302c3e3-4987-455b-9d41-d512b403821a",
+        "timestamp": 1790824100008
       }
     ],
     "2.3 Implement `internal/cache/cache.go` — go-redis client factory": [
@@ -93,6 +103,11 @@
         "executionId": "ade580d1-3f3d-4ca2-a6ab-388d7095ec97",
         "chatSessionId": "sess_6302c3e3-4987-455b-9d41-d512b403821a",
         "timestamp": 1790801444869
+      },
+      {
+        "executionId": "73408230-7829-4693-abe1-2f5b25251925",
+        "chatSessionId": "sess_6302c3e3-4987-455b-9d41-d512b403821a",
+        "timestamp": 1790824100331
       }
     ],
     "3.1 Write SQL migration 001 — `tongue_twisters` table": [
@@ -100,6 +115,11 @@
         "executionId": "ade580d1-3f3d-4ca2-a6ab-388d7095ec97",
         "chatSessionId": "sess_6302c3e3-4987-455b-9d41-d512b403821a",
         "timestamp": 1790801445007
+      },
+      {
+        "executionId": "d95d92cd-acf1-4ea9-b5b6-d6d9ea2a02c5",
+        "chatSessionId": "sess_6302c3e3-4987-455b-9d41-d512b403821a",
+        "timestamp": 1790905445739
       }
     ],
     "3.2 Write SQL migration 002 — `users` table": [
@@ -107,6 +127,11 @@
         "executionId": "ade580d1-3f3d-4ca2-a6ab-388d7095ec97",
         "chatSessionId": "sess_6302c3e3-4987-455b-9d41-d512b403821a",
         "timestamp": 1790801445174
+      },
+      {
+        "executionId": "d95d92cd-acf1-4ea9-b5b6-d6d9ea2a02c5",
+        "chatSessionId": "sess_6302c3e3-4987-455b-9d41-d512b403821a",
+        "timestamp": 1790905446052
       }
     ],
     "3.3 Write SQL migrations 003 and 004 — `game_records` and `attempt_details` tables": [
@@ -380,6 +405,13 @@
         "executionId": "81de53c7-a1e1-4736-9be8-917280f5a80c",
         "chatSessionId": "sess_6302c3e3-4987-455b-9d41-d512b403821a",
         "timestamp": 1790820326452
+      }
+    ],
+    "2. Configuration and startup wiring": [
+      {
+        "executionId": "73408230-7829-4693-abe1-2f5b25251925",
+        "chatSessionId": "sess_6302c3e3-4987-455b-9d41-d512b403821a",
+        "timestamp": 1790824100494
       }
     ]
   }

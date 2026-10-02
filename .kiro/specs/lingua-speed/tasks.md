@@ -58,30 +58,30 @@ Tasks are ordered strictly by dependency: infrastructure first, then domain type
     - Write a minimal multi-stage `Dockerfile` that builds the Go binary and copies it into a distroless image
     - _Requirements: 1.1, 1.2, 1.5, 1.6_
 
-- [ ] 2. Configuration and startup wiring
-  - [-] 2.1 Implement `internal/config/config.go`
+- [x] 2. Configuration and startup wiring
+  - [x] 2.1 Implement `internal/config/config.go`
     - Define `Config` struct with fields: `DatabaseURL`, `RedisAddr`, `JWTSecret`, `ServerPort` (default `"3000"`), `AdminUsername`, `AdminPassword`, `BasePoints` (default 1000), `Penalty` (default 200)
     - `Load()` reads all values from environment variables; collects every missing required variable name and exits with code 1 after logging all missing names in a single `slog.Error` call
     - Include package-level godoc comment
     - _Requirements: 1.3, 1.4_
 
-  - [~] 2.2 Implement `internal/db/db.go` — pgx connection pool factory
+  - [x] 2.2 Implement `internal/db/db.go` — pgx connection pool factory
     - `New(ctx, databaseURL)` opens a `pgxpool.Pool` and pings; returns error on failure
     - Include package-level godoc comment and exported symbol comments
     - _Requirements: 1.2_
 
-  - [~] 2.3 Implement `internal/cache/cache.go` — go-redis client factory
+  - [x] 2.3 Implement `internal/cache/cache.go` — go-redis client factory
     - `New(addr)` creates a `redis.Client`, calls `Ping`; returns error on failure
     - Include package-level godoc comment
     - _Requirements: 1.2_
 
 - [ ] 3. Database schema migrations
-  - [~] 3.1 Write SQL migration 001 — `tongue_twisters` table
+  - [-] 3.1 Write SQL migration 001 — `tongue_twisters` table
     - Up: `CREATE TABLE tongue_twisters` with columns `id`, `text` (VARCHAR 500, trimmed non-empty check), `difficulty` (CHECK IN 'easy','medium','hard'), `active` (BOOLEAN DEFAULT TRUE), `created_at`, `updated_at`; create composite index `idx_tt_difficulty_active (difficulty, active)`
     - Down: `DROP TABLE tongue_twisters`
     - _Requirements: 2.3_
 
-  - [~] 3.2 Write SQL migration 002 — `users` table
+  - [-] 3.2 Write SQL migration 002 — `users` table
     - Up: `CREATE TYPE user_role AS ENUM ('admin','moderator')`, `CREATE TABLE users` with columns `id`, `username` (VARCHAR 64 UNIQUE NOT NULL), `hashed_password` (VARCHAR 72), `role user_role NOT NULL`, `created_at`, `updated_at`
     - Down: `DROP TABLE users`, `DROP TYPE user_role`
     - _Requirements: 2.4, 2.7_
